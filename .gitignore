@@ -1,0 +1,7 @@
+back/node_modules
+back/dist
+back/outputs
+back/templates
+*.env
+
+front/node_modules
