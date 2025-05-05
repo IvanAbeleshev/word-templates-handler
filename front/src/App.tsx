@@ -39,27 +39,25 @@ function App() {
   }, [])
   
   const changeTemplate = (value: string) => {
-    const storedData = localStorage.getItem('templateStoredData')
-    const storedDataObject:{
-      templateName: string,
-      data: {fieldName: string, replacer:string}[]
-    }[] = storedData ? JSON.parse(storedData) : []
-    
-    const foundStoredTemplate = storedDataObject.find((el: {
-      templateName: string,
-      data: {fieldName: string, replacer:string}[]
-    }) => el.templateName === value)
-    if(foundStoredTemplate){
-      setFieldsValue(foundStoredTemplate.data)
-    }else{
-      setFieldsValue([])
+    if (!isCommonFieldsMode) {
+      const storedData = localStorage.getItem('templateStoredData')
+      const storedDataObject:{
+        templateName: string,
+        data: {fieldName: string, replacer:string}[]
+      }[] = storedData ? JSON.parse(storedData) : []
+      
+      const foundStoredTemplate = storedDataObject.find((el: {
+        templateName: string,
+        data: {fieldName: string, replacer:string}[]
+      }) => el.templateName === value)
+      if(foundStoredTemplate){
+        setFieldsValue(foundStoredTemplate.data)
+      }else{
+        setFieldsValue([])
+      }
     }
     setSelectedTemplate(value)
     
-    // If in common fields mode, show all fields from all templates
-    if (isCommonFieldsMode) {
-      loadCommonFields()
-    }
   }
   
   const loadCommonFields = () => {
